@@ -14,16 +14,33 @@
 
 @implementation Nav
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+-(instancetype)initWithRootViewController:(UIViewController *)rootViewController{
+    self=[super initWithRootViewController:rootViewController];
+    if (self) {
+        UINavigationBar *bar = [[UINavigationBar alloc]init];
+        bar.tintColor=[UIColor colorWithRed:22.0/255 green:160.0/255 blue:3.0/255 alpha:1] ;
+        bar.barTintColor=[UIColor colorWithRed:43.0/255 green:42.0/255 blue:47.0/255 alpha:1];
+        [self setValue:bar forKey:@"navigationBar"];
+    }
+    return self;
 }
 
+-(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(clickTheItem)];
+    viewController.navigationItem.leftBarButtonItem=item;
+    [super pushViewController:viewController animated:YES];
+}
+
+-(void)clickTheItem{
+    [super popViewControllerAnimated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 /*
 #pragma mark - Navigation
 
